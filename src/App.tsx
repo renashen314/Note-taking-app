@@ -8,6 +8,7 @@ import { v4 as uuidV4 } from "uuid";
 import { NoteList } from "./NoteList.tsx";
 import { NoteLayout } from "./NoteLayout.tsx";
 import { Note } from "./Note.tsx";
+import { EditNote } from "./EditNote.tsx";
 
 export type RawNoteData = {
   title: string;
@@ -118,7 +119,16 @@ function App() {
 
         <Route path="/:id" element={<NoteLayout notes={notesWithTags} />}>
           <Route index element={<Note onDelete={onDeleteNote} />} />
-          <Route path="edit" element={<h1>Edit</h1>} />
+          <Route
+            path="edit"
+            element={
+              <EditNote
+                onSubmit={onUpdateNote}
+                onAddTag={addTag}
+                availableTags={tags}
+              />
+            }
+          />
         </Route>
         <Route path="*" element={<Navigate to="/" />} />
       </Routes>
